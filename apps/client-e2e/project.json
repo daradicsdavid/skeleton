@@ -1,0 +1,108 @@
+{
+  "name": "client-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/client-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "commands": [
+            {
+              "command": "nx run entities:seed:local",
+              "forwardAllArgs": false
+            },
+            "npx playwright test --config apps/client-e2e/playwright.config.ts"
+          ]
+        }
+      }
+    },
+    "headed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "commands": [
+            {
+              "command": "nx run entities:seed:local",
+              "forwardAllArgs": false
+            },
+            "npx playwright test --config apps/client-e2e/playwright.config.ts --headed"
+          ]
+        }
+      }
+    },
+    "file": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "commands": [
+            {
+              "command": "nx run entities:seed:local",
+              "forwardAllArgs": false
+            },
+            "npx playwright test {args.file} --config apps/client-e2e/playwright.config.ts "
+          ]
+        }
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "commands": [
+            {
+              "command": "nx run entities:seed:local",
+              "forwardAllArgs": false
+            },
+            "npx playwright test -g \"{args.test}\" --config apps/client-e2e/playwright.config.ts "
+          ]
+        }
+      }
+    },
+    "debug": {
+      "executor": "nx:run-commands",
+      "options": {
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "commands": [
+            {
+              "command": "nx run entities:seed:local",
+              "forwardAllArgs": false
+            },
+            "npx playwright test -g \"{args.test}\" --config apps/client-e2e/playwright.config.ts --debug"
+          ]
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/client-e2e/**/*.{js,ts}"
+        ]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": [
+    "client"
+  ]
+}

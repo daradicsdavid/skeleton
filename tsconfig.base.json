@@ -2,19 +2,40 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "noPropertyAccessFromIndexSignature": false,
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
     "sourceMap": true,
     "declaration": false,
     "moduleResolution": "node",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
     "importHelpers": true,
+    "resolveJsonModule": true,
     "target": "es2015",
-    "module": "esnext",
-    "lib": ["es2017", "dom"],
+    "module": "commonjs",
+    "lib": [
+      "es2017",
+      "dom"
+    ],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@skeleton/api-client/*": [
+        "libs/api-client/src/*"
+      ],
+      "@skeleton/common/*": [
+        "libs/common/src/*"
+      ],
+      "@skeleton/entities/*": [
+        "libs/entities/src/*"
+      ]
+    }
   },
-  "exclude": ["node_modules", "tmp"]
+  "exclude": [
+    "node_modules",
+    "tmp"
+  ]
 }

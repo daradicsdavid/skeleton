@@ -1,0 +1,126 @@
+{
+  "name": "entities",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/entities/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "libs/entities/**/*.ts"
+        ]
+      }
+    },
+    "micro-orm-cli": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/entities",
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "command": "env-cmd -f .env.local npx mikro-orm migration:{args.command}"
+        },
+        "test": {
+          "command": "env-cmd -f .env.test npx mikro-orm migration:{args.command}"
+        },
+        "development": {
+          "command": "env-cmd -f .env.development npx mikro-orm migration:{args.command}"
+        }
+      }
+    },
+    "create-blank-migration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/entities",
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "command": "env-cmd -f .env.local npx mikro-orm migration:create --blank"
+        }
+      }
+    },
+    "create-migration": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/entities",
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "command": "env-cmd -f .env.local npx mikro-orm migration:create"
+        }
+      }
+    },
+    "migrate": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "./libs/entities",
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "command": "env-cmd -f ./.env.local npx mikro-orm migration:up"
+        }
+      }
+    },
+    "rollback": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/entities",
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "command": "env-cmd -f .env.local npx mikro-orm migration:down"
+        }
+      }
+    },
+    "pending": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/entities",
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "command": "env-cmd -f .env.local npx mikro-orm migration:pending"
+        }
+      }
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "cwd": "libs/entities",
+        "parallel": false
+      },
+      "configurations": {
+        "local": {
+          "command": "env-cmd -f .env.local npx mikro-orm migration:fresh --seed"
+        }
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectRoot}"
+      ],
+      "options": {
+        "jestConfig": "libs/entities/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

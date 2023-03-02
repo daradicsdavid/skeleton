@@ -1,0 +1,12 @@
+{
+  "newUserButtonLabel": "Új felhasználó",
+  "usersTable": {
+    "caption": "Felhasználók",
+    "nameColumn": "Név",
+    "roleColumn": "Szerep"
+  },
+  "userForm": {
+    "nameLabel": "Név",
+    "roleLabel": "Szerep"
+  }
+}

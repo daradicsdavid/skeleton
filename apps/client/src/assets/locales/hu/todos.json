@@ -1,0 +1,10 @@
+{
+  "newTodoButtonLabel": "Új teendő",
+  "todosTable": {
+    "caption": "Teendők",
+    "titleColumn": "Cím"
+  },
+  "todoForm": {
+    "titleLabel": "Cím"
+  }
+}

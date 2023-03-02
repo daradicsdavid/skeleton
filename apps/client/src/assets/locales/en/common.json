@@ -1,0 +1,19 @@
+{
+  "table": {
+    "previousPageButtonLabel": "Previous",
+    "nextPageButtonLabel": "Next"
+  },
+  "form": {
+    "saveButtonLabel": "Save",
+    "deleteButtonLabel": "Delete",
+    "errorMessages": {
+      "isRequired": "{{field}} is required!"
+    }
+  },
+  "errors": {
+    "general": {
+      "title": "An unknown error occured!",
+      "description": "Please try again later."
+    }
+  }
+}

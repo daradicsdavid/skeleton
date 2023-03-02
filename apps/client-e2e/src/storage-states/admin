@@ -1,0 +1,25 @@
+{
+  "cookies": [
+    {
+      "name": "access-token",
+      "value": "be5415fa-745c-4259-b2e5-4f9be3e93b89",
+      "domain": "localhost",
+      "path": "/",
+      "expires": 1677750083.025735,
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Strict"
+    }
+  ],
+  "origins": [
+    {
+      "origin": "http://localhost:4200",
+      "localStorage": [
+        {
+          "name": "chakra-ui-color-mode",
+          "value": "light"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "newTodoButtonLabel": "New todo",
+  "todosTable": {
+    "caption": "Todos",
+    "titleColumn": "Title"
+  },
+  "todoForm": {
+    "titleLabel": "title"
+  }
+}

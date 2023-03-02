@@ -1,0 +1,19 @@
+{
+  "table": {
+    "previousPageButtonLabel": "Előző",
+    "nextPageButtonLabel": "Következő"
+  },
+  "form": {
+    "saveButtonLabel": "Mentés",
+    "deleteButtonLabel": "Törlés",
+    "errorMessages": {
+      "isRequired": "A {{field}} mező kitöltése kötelező!"
+    }
+  },
+  "errors": {
+    "general": {
+      "title": "Hiba történt!",
+      "description": "Kérlek próbáld újra."
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "newUserButtonLabel": "New user",
+  "usersTable": {
+    "caption": "Users",
+    "nameColumn": "Name",
+    "roleColumn": "Role"
+  },
+  "userForm": {
+    "nameLabel": "Name",
+    "roleLabel": "Role"
+  }
+}
