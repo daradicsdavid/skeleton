@@ -15,27 +15,16 @@
     "resolveJsonModule": true,
     "target": "es2015",
     "module": "commonjs",
-    "lib": [
-      "es2017",
-      "dom"
-    ],
+    "lib": ["es2017", "dom"],
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@skeleton/api-client/*": [
-        "libs/api-client/src/*"
-      ],
-      "@skeleton/common/*": [
-        "libs/common/src/*"
-      ],
-      "@skeleton/entities/*": [
-        "libs/entities/src/*"
-      ]
+      "@skeleton/api-client/*": ["libs/api-client/src/*"],
+      "@skeleton/api-modules/*": ["libs/api-modules/src/*"],
+      "@skeleton/common/*": ["libs/common/src/*"],
+      "@skeleton/entities/*": ["libs/entities/src/*"]
     }
   },
-  "exclude": [
-    "node_modules",
-    "tmp"
-  ]
+  "exclude": ["node_modules", "tmp"]
 }

@@ -26,6 +26,83 @@ import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 /**
  * 
  * @export
+ * @interface Check200Response
+ */
+export interface Check200Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof Check200Response
+     */
+    'status'?: string;
+    /**
+     * 
+     * @type {{ [key: string]: Check200ResponseInfoValue; }}
+     * @memberof Check200Response
+     */
+    'info'?: { [key: string]: Check200ResponseInfoValue; } | null;
+    /**
+     * 
+     * @type {{ [key: string]: Check200ResponseInfoValue; }}
+     * @memberof Check200Response
+     */
+    'error'?: { [key: string]: Check200ResponseInfoValue; } | null;
+    /**
+     * 
+     * @type {{ [key: string]: Check200ResponseInfoValue; }}
+     * @memberof Check200Response
+     */
+    'details'?: { [key: string]: Check200ResponseInfoValue; };
+}
+/**
+ * 
+ * @export
+ * @interface Check200ResponseInfoValue
+ */
+export interface Check200ResponseInfoValue {
+    [key: string]: string | any;
+
+    /**
+     * 
+     * @type {string}
+     * @memberof Check200ResponseInfoValue
+     */
+    'status'?: string;
+}
+/**
+ * 
+ * @export
+ * @interface Check503Response
+ */
+export interface Check503Response {
+    /**
+     * 
+     * @type {string}
+     * @memberof Check503Response
+     */
+    'status'?: string;
+    /**
+     * 
+     * @type {{ [key: string]: Check200ResponseInfoValue; }}
+     * @memberof Check503Response
+     */
+    'info'?: { [key: string]: Check200ResponseInfoValue; } | null;
+    /**
+     * 
+     * @type {{ [key: string]: Check200ResponseInfoValue; }}
+     * @memberof Check503Response
+     */
+    'error'?: { [key: string]: Check200ResponseInfoValue; } | null;
+    /**
+     * 
+     * @type {{ [key: string]: Check200ResponseInfoValue; }}
+     * @memberof Check503Response
+     */
+    'details'?: { [key: string]: Check200ResponseInfoValue; };
+}
+/**
+ * 
+ * @export
  * @interface CreateTodoRequest
  */
 export interface CreateTodoRequest {
@@ -303,7 +380,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
         login: async (loginDto: LoginDto, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'loginDto' is not null or undefined
             assertParamExists('login', 'loginDto', loginDto)
-            const localVarPath = `/public-api/auth/login`;
+            const localVarPath = `/auth/login`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -336,7 +413,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         logout: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/public-api/auth/logout`;
+            const localVarPath = `/auth/logout`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -366,7 +443,7 @@ export const AuthApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         me: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/public-api/auth/me`;
+            const localVarPath = `/auth/me`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -515,6 +592,100 @@ export class AuthApi extends BaseAPI {
 
 
 /**
+ * HealthApi - axios parameter creator
+ * @export
+ */
+export const HealthApiAxiosParamCreator = function (configuration?: Configuration) {
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        check: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/health`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+    }
+};
+
+/**
+ * HealthApi - functional programming interface
+ * @export
+ */
+export const HealthApiFp = function(configuration?: Configuration) {
+    const localVarAxiosParamCreator = HealthApiAxiosParamCreator(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async check(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Check200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.check(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+    }
+};
+
+/**
+ * HealthApi - factory interface
+ * @export
+ */
+export const HealthApiFactory = function (configuration?: Configuration, basePath?: string, axios?: AxiosInstance) {
+    const localVarFp = HealthApiFp(configuration)
+    return {
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        check(options?: any): AxiosPromise<Check200Response> {
+            return localVarFp.check(options).then((request) => request(axios, basePath));
+        },
+    };
+};
+
+/**
+ * HealthApi - object-oriented interface
+ * @export
+ * @class HealthApi
+ * @extends {BaseAPI}
+ */
+export class HealthApi extends BaseAPI {
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof HealthApi
+     */
+    public check(options?: AxiosRequestConfig) {
+        return HealthApiFp(this.configuration).check(options).then((request) => request(this.axios, this.basePath));
+    }
+}
+
+
+/**
  * TodoApi - axios parameter creator
  * @export
  */
@@ -530,7 +701,7 @@ export const TodoApiAxiosParamCreator = function (configuration?: Configuration)
         createTodo: async (createTodoRequest: CreateTodoRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createTodoRequest' is not null or undefined
             assertParamExists('createTodo', 'createTodoRequest', createTodoRequest)
-            const localVarPath = `/public-api/todo`;
+            const localVarPath = `/todo`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -566,7 +737,7 @@ export const TodoApiAxiosParamCreator = function (configuration?: Configuration)
         removeTodo: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('removeTodo', 'id', id)
-            const localVarPath = `/public-api/todo/{id}`
+            const localVarPath = `/todo/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -600,7 +771,7 @@ export const TodoApiAxiosParamCreator = function (configuration?: Configuration)
         todo: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('todo', 'id', id)
-            const localVarPath = `/public-api/todo/{id}`
+            const localVarPath = `/todo/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -634,7 +805,7 @@ export const TodoApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         todos: async (order?: 'ASC' | 'DESC', page?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/public-api/todo`;
+            const localVarPath = `/todo`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -682,7 +853,7 @@ export const TodoApiAxiosParamCreator = function (configuration?: Configuration)
             assertParamExists('updateTodo', 'id', id)
             // verify required parameter 'updateTodoRequest' is not null or undefined
             assertParamExists('updateTodo', 'updateTodoRequest', updateTodoRequest)
-            const localVarPath = `/public-api/todo/{id}`
+            const localVarPath = `/todo/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -931,7 +1102,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         createUser: async (createUserRequest: CreateUserRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createUserRequest' is not null or undefined
             assertParamExists('createUser', 'createUserRequest', createUserRequest)
-            const localVarPath = `/public-api/user`;
+            const localVarPath = `/user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -967,7 +1138,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         removeUser: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('removeUser', 'id', id)
-            const localVarPath = `/public-api/user/{id}`
+            const localVarPath = `/user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1004,7 +1175,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
             assertParamExists('updateUser', 'id', id)
             // verify required parameter 'updateUserRequest' is not null or undefined
             assertParamExists('updateUser', 'updateUserRequest', updateUserRequest)
-            const localVarPath = `/public-api/user/{id}`
+            const localVarPath = `/user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1041,7 +1212,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
         user: async (id: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('user', 'id', id)
-            const localVarPath = `/public-api/user/{id}`
+            const localVarPath = `/user/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -1075,7 +1246,7 @@ export const UserApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         users: async (order?: 'ASC' | 'DESC', page?: number, limit?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/public-api/user`;
+            const localVarPath = `/user`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;

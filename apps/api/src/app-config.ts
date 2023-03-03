@@ -1,13 +1,13 @@
-import {INestApplication, Logger, RequestMethod, ValidationPipe} from "@nestjs/common";
+import {Logger, RequestMethod, ValidationPipe} from "@nestjs/common";
 import {Logger as PinoLogger} from "nestjs-pino/Logger";
-import cookieParser from "cookie-parser";
 import {DocumentBuilder, SwaggerModule} from "@nestjs/swagger";
 import fs from "fs";
 import {execSync} from "child_process";
+import {NestFastifyApplication} from "@nestjs/platform-fastify";
+import fastifyCookie from "@fastify/cookie";
 
-export function mainConfig(app: INestApplication, globalPrefix: string, enableClientGeneration: boolean) {
-
-
+export async function mainConfig(app: NestFastifyApplication, globalPrefix: string, enableClientGeneration: boolean) {
+  await app.register(fastifyCookie);
   app.setGlobalPrefix(globalPrefix, {
     exclude: [{path: "health", method: RequestMethod.GET}]
   });
@@ -24,7 +24,6 @@ export function mainConfig(app: INestApplication, globalPrefix: string, enableCl
     app.useLogger(app.get(PinoLogger));
   }
   app.useGlobalPipes(new ValidationPipe());
-  app.use(cookieParser());
 
   const allowedMethods = ["GET", "HEAD", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"];
 
